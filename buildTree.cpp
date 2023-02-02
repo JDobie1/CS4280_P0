@@ -37,13 +37,17 @@ struct node* insert(struct node* root, string word, int value) {
 
 struct node* buildTree(string filename) {
     //struct node* root = NULL;
-	ifstream g(filename);
+	ifstream buildTreeFile(filename);
 	string read;
-	g >> read;
+	buildTreeFile >> read;
     struct node* build = insert(NULL, read, read.length());
-	while(g >> read) {
+	while(buildTreeFile >> read) {
         for (int i = 0; i < read.length(); i++) {
             if (static_cast<int>(read[i]) > 122 || static_cast<int>(read[i]) < 97) {
+                cout << "Error. Invalid character detected.";
+                exit(1);
+            }
+            if (isdigit(read[i])) {
                 cout << "Error. Invalid character detected.";
                 exit(1);
             }

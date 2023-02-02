@@ -9,7 +9,7 @@ using namespace std;
 int main(int argc, char* argv[]) {
 
         /* Variable Declarations */
-        FILE *f; 
+        FILE *mainIn; 
         char keyboard[1000];
         ofstream kb;
         //Switch statement to handle command line arguments
@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
                         break;
                 case 2:
                         //Read from a file given in the Command Line
-                        if ((f = fopen(argv[1], "r")) == NULL) {
+                        if ((mainIn = fopen(argv[1], "r")) == NULL) {
                                 cout << "Cannot open input file." << endl;
                                 exit(1);
                         }
@@ -44,8 +44,8 @@ int main(int argc, char* argv[]) {
                         exit(0);
         }
         struct node* build = buildTree(filename);
-	printInOrder(build, 0, filename);
-	printPreOrder(build, 0, filename);
-	printLevelOrder(build, 0, filename);
+	traverseInOrder(build, 0, filename);
+	traversePreOrder(build, 0, filename);
+	traverseLevelOrder(build, 0, filename);
         return 0;
 }
