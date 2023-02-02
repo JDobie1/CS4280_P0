@@ -9,16 +9,18 @@ using namespace std;
 int main(int argc, char* argv[]) {
 
         /* Variable Declarations */
-        FILE *f;
+        FILE *f; 
         char keyboard[1000];
         ofstream kb;
         //Switch statement to handle command line arguments
-        buildTree(f);
-        /*
+        // buildTree(f);
+	//node* build = buildTree(f);
+	//printInOrder(build);
+        string filename = "out";
         switch(argc) {
                 case 1:
                         //open the kb file "out.txt"
-                        kb.open("out.txt");
+                        kb.open("out");
                         cout << "Text to enter into the file: ";
                         //Read from command line until simulated EOF
                         while (fgets(keyboard, 1000, stdin) != NULL) {
@@ -34,19 +36,16 @@ int main(int argc, char* argv[]) {
                                 exit(1);
                         }
                         else {
-                                //do stuff
-                                //node_t *root = buildTree(f);
-
-                                //levelOrder(root);
-                                //preOrder(root);
-                                //postOrder(root);
-
+				filename = argv[1];
                         }
+			break;
                 default:
                         cout << "Fatal: Improper usage. Usage: P0 [filename]" << endl;
                         exit(0);
         }
-        */
-
+        struct node* build = buildTree(filename);
+	printInOrder(build, 0, filename);
+	printPreOrder(build, 0, filename);
+	printLevelOrder(build, 0, filename);
         return 0;
 }

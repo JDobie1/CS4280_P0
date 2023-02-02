@@ -2,47 +2,53 @@
 #include "node.h"
 #include <iostream>
 #include <string>
+#include <fstream>
+using namespace std;
 
-struct node *newNode(int item) {
-        struct node* temp = (struct node*)malloc(sizeof(struct node));
+struct node *newNode(string word) {
+        struct node* temp = new node();
         //temp->key = strdup(item);
         temp->left = NULL;
         temp->right = NULL;
-        temp->data = item;
+	temp->word = word;
+        temp->data = word.length();
         return temp;
 };
 
+void addWordToNode(struct node* root, string word) {
+	root->word += " " +  word;	
+}
 /* Adapted from https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/ */
-struct node* insert(struct node* root, int value) {
+struct node* insert(struct node* root, string word, int value) {
     if (!root) {
-        return newNode(value);
+        return newNode(word);
     }
     if (value > root->data) {
-        root->right = insert(root->right, value);
+        root->right = insert(root->right,word, value);
     }
     else if (value < root->data) {
-        root->left = insert(root->left, value);
+        root->left = insert(root->left,word, value);
+    }
+    else {
+    	addWordToNode(root, word);
     }
     return root;
 }
 
-struct node* buildTree(FILE* f) {
-    struct node* root = NULL;
-    //Read from the file passed in
-    root = insert(root, 8);
-    insert(root, 3);
-    insert(root, 6);
-    insert(root, 10);
-    insert(root, 1);
-    insert(root, 14);
-
-    return root;
+struct node* buildTree(string filename) {
+    //struct node* root = NULL;
+	ifstream g(filename);
+	string read;
+	g >> read;
+    struct node* build = insert(NULL, read, read.length());
+	while(g >> read) {
+        for (int i = 0; i < read.length(); i++) {
+            if (static_cast<int>(read[i]) > 122 || static_cast<int>(read[i]) < 97) {
+                cout << "Error. Invalid character detected.";
+                exit(1);
+            }
+        }
+		insert(build, read, read.length());
+	}
+    return build;
 }
-
-static void printParseTree(struct node* root, int level) { 
-    if (root == NULL) return; 
-    printf("%*c%d:",level*4,' ',level); // assume some info printed as string 
-    printf("\n"); 
-    printParseTree(root->left,level+1); 
-    printParseTree(root->right,level+1); 
-} 

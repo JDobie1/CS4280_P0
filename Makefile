@@ -4,9 +4,8 @@ OBJ=main.o buildTree.o traversals.o
 BIN=P0
 
 %.o: %.cpp
-    	$(CXX) -g $(CXXFLAGS) $< -c -o $@
+	$(CXX) -g $(CXXFLAGS) $< -c -o $@
 $(BIN): $(OBJ)
-        $(CXX) -g $(CXXFLAGS) $^ -o $@
-
+	$(CXX) -g $(CXXFLAGS) $^ -o $@
 clean:
-        rm $(OBJ) $(BIN)
+	rm $(OBJ) $(BIN) *.levelorder *.inorder *.preorder
