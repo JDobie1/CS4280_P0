@@ -10,23 +10,25 @@ int main(int argc, char* argv[]) {
 
         /* Variable Declarations */
         FILE *mainIn; 
-        char keyboard[1000];
         ofstream kb;
+        char whileChar;
+        string whileString = "";
         //Switch statement to handle command line arguments
-        // buildTree(f);
-	//node* build = buildTree(f);
-	//printInOrder(build);
         string filename = "out";
         switch(argc) {
                 case 1:
-                        //open the kb file "out.txt"
                         kb.open("out");
                         cout << "Text to enter into the file: ";
                         //Read from command line until simulated EOF
-                        while (fgets(keyboard, 1000, stdin) != NULL) {
-                                //Write to the out.txt file
-                                kb << keyboard;
+
+                        while ((whileChar = getchar()) != EOF) {
+                                if ((static_cast<int>(whileChar) > 122 || static_cast<int>(whileChar) < 97) && !isspace(whileChar)) {
+                                        cout << "Error. Invalid character detected.";
+                                        exit(1);
+                                }
+                                whileString += whileChar;
                         }
+                        kb << whileString;
                         kb.close();
                         break;
                 case 2:

@@ -50,7 +50,6 @@ void traverseLevelOrder(struct node* node, int level, string fileName) {
 		lOrderQueue.pop();
 		levelQueue.pop();
 	}
-	//change f to fout or something similar
 	levelOrder.close(); 
 }
 

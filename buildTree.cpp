@@ -6,13 +6,13 @@
 using namespace std;
 
 struct node *newNode(string word) {
-        struct node* temp = new node();
-        //temp->key = strdup(item);
-        temp->left = NULL;
-        temp->right = NULL;
+    struct node* temp = new node();
+    //temp->key = strdup(item);
+    temp->left = NULL;
+    temp->right = NULL;
 	temp->word = word;
-        temp->data = word.length();
-        return temp;
+    temp->data = word.length();
+    return temp;
 };
 
 void addWordToNode(struct node* root, string word) {
@@ -44,10 +44,6 @@ struct node* buildTree(string filename) {
 	while(buildTreeFile >> read) {
         for (int i = 0; i < read.length(); i++) {
             if (static_cast<int>(read[i]) > 122 || static_cast<int>(read[i]) < 97) {
-                cout << "Error. Invalid character detected.";
-                exit(1);
-            }
-            if (isdigit(read[i])) {
                 cout << "Error. Invalid character detected.";
                 exit(1);
             }
